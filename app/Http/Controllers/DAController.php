@@ -59,8 +59,6 @@ class DAController extends Controller
 
         $dataset2 = json_decode($response, true);
 
-        echo var_dump($dataset2);
-
         DB::table('donation_alerts')->upsert([
             [
                 'prop_name' => 'user_id',
