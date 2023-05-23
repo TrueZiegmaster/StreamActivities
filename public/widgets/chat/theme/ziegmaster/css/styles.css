@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+:root {
+    /** Left: row Right: row-reverse */
+    --chat-align: row;
+    --avatar-size: 64px;
+    --avatar-gap: 10px;
+    --message-padding: 8px;
+    --message-gap-bottom: 16px;
+    --message-background-color: rgba(0,0,0,0.96);
+    --message-border-radius: 8px;
+    --rewardColor: purple;
+    --badge-size: 32px;
+    --badge-spacing: 8px;
+    --emote-size: 32px;
+    --emote-only-size: 32px;
+    --font-color: #fff;
+    --font-size: 32px;
+    --font-family: "Source Sans Pro", sans-serif;
+    --time-size: 0;
+    --time-align: right;
+    --animate-duration: .3s;
+    --animate-delay: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+}
+
+#chat {
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+}
+
+#chat li {
+    display: flex;
+    margin-bottom: var(--message-gap-bottom);
+    flex-direction: var(--chat-align);
+}
+
+
+.avatar img {
+    width: var(--avatar-size);
+    border-radius: var(--message-border-radius);
+}
+
+.avatar {
+    margin-right: var(--avatar-gap);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badges{
+    height: var(--badge-size);
+    display: inline flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badges img {
+    width: var(--badge-size);
+    margin-right: var(--badge-spacing);
+}
+
+.message {
+    width: 100%;
+    display: inline-flex;
+    border-radius: var(--message-border-radius);
+    flex-wrap: wrap;
+    padding: var(--message-padding);
+    background-color: var(--message-background-color);
+    color: var(--font-color);
+    font-size: var(--font-size);
+    overflow-wrap: anywhere;
+}
+
+.message .emote {
+    height: var(--emote-size);
+}
+
+.emoteonly .message .emote {
+    height: var(--emote-only-size);
+}
+
+.name {
+    height: var(--font-size);
+    color: var(--userColor);
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time {
+    font-size: var(--time-size);
+    float: var(--time-align);
+}
+
+.content{
+    text-indent: calc(var(--avatar-size) + var(--avatar-gap));
+    width: 100%;
+    margin-top: calc(var(--font-size) * -1);
+    line-height: calc(var(--font-size) * 1.1);
+}
+
+.content > *{
+    vertical-align: middle;
+}
