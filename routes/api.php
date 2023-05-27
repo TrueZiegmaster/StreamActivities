@@ -25,3 +25,4 @@ Route::patch('/sr/set-played', [SongRequestController::class, 'set_played']);
 
 use App\Http\Controllers\DAController;
 Route::get('/donation_alerts/get-credentials', [DAController::class, 'get_credentials']);
+Route::post('/donation_alerts/proxy-tts', [DAController::class, 'proxy_tts_request']);

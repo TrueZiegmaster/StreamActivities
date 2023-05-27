@@ -92,4 +92,57 @@ class DAController extends Controller
 
         return response()->json($credentials, 200);
     }
+
+    public function proxy_tts_request(Request $request){
+        $widget_token = DB::table('donation_alerts')->select(['prop_value'])->where('prop_name', 'widget_token')->first()->prop_value;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://www.donationalerts.com/api/v1/speechsynthesis?'.http_build_query([
+            'alert_id' => $request->alert_id,
+            'alert_type' => $request->alert_type,
+            'text' => $request->text,
+        ]));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer '.$widget_token
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return response($response, 200, ['Content-Type' => $this->is_json($response) ? 'application/json' : 'audio/mp3']);
+    }
+
+    /**
+    * Returns true, when the given parameter is a valid JSON string.
+    */
+    private function is_json( $value ) {
+        // Numeric strings are always valid JSON.
+        if ( is_numeric( $value ) ) { return true; }
+
+        // A non-string value can never be a JSON string.
+        if ( ! is_string( $value ) ) { return false; }
+
+        // Any non-numeric JSON string must be longer than 2 characters.
+        if ( strlen( $value ) < 2 ) { return false; }
+
+        // "null" is valid JSON string.
+        if ( 'null' === $value ) { return true; }
+
+        // "true" and "false" are valid JSON strings.
+        if ( 'true' === $value ) { return true; }
+        if ( 'false' === $value ) { return true; }
+
+        // Any other JSON string has to be wrapped in {}, [] or "".
+        if ( '{' != $value[0] && '[' != $value[0] && '"' != $value[0] ) { return false; }
+
+        // Verify that the trailing character matches the first character.
+        $last_char = $value[strlen($value) -1];
+        if ( '{' == $value[0] && '}' != $last_char ) { return false; }
+        if ( '[' == $value[0] && ']' != $last_char ) { return false; }
+        if ( '"' == $value[0] && '"' != $last_char ) { return false; }
+
+        // See if the string contents are valid JSON.
+        return null !== json_decode( $value );
+    }
 }
