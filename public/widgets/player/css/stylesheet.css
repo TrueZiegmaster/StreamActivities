@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 8vh;
+    font-weight: bold;
+    color:#fff;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80vh 20vh;
+}
+
+#frame-footer{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 20vh;
+}
+
+#player-wrapper{
+    display: grid;
+    align-items: center;
+    grid-template-rows: 70% auto;
+}
+
+#player-wrapper{
+    width: 100vw;
+    height: 16vh;
+    opacity: 0;
+    transition: opacity 1s linear;
+    position: absolute;
+}
+
+#player-wrapper.active{
+    opacity: 1;
+    transition: opacity 1s linear;
+    transition-delay: 1s;
+}
+
+#title{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100vw;
+    vertical-align: middle;
+    z-index: 100;
+    text-align: center;
+}
+
+#progress-bar{
+    width: 100vw;
+    height: 4vh;
+    background-color: #1A4A46;
+    position: relative;
+}
+
+#elapsed-time{
+    height: 100%;
+    background: #19C6B7;
+    position: absolute;
+    transition: width .25s;
+}
+
+#equalizer{
+    height: 100%;
+    position: absolute;
+}
+
+.eq-row {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100%;
+  }
+
+.eq-row:first-of-type {
+    align-items: flex-end;
+    height: 50%;
+}
+
+.eq-row:last-of-type {
+    align-items: flex-start;
+    height: 50%;
+}
+
+.eq-row > * {
+    top: 50%;
+    width: 2%;
+    transition: height .25s;
+    background: transparent;
+}
+
+.eq-row:first-of-type > div{
+    border-top: 1.8vw solid black;
+    border-left: .25vw solid black;
+    border-right: .25vw solid black;
+}
+
+.eq-row:first-of-type > div::before{
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 -.1vw 0 .1vw black;
+    border-radius: .2vw .2vw 0 0;
+}
+
+.eq-row:last-of-type > div{
+    border-bottom: 1.8vh solid black;
+    border-left: .25vw solid black;
+    border-right: .25vw solid black;
+}
+
+.eq-row:last-of-type > div::before{
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 .1vw 0 .1vw black;
+    border-radius: 0 0 .2vw .2vw;
+}
